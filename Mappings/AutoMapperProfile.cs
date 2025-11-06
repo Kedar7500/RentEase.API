@@ -9,6 +9,8 @@ namespace RentEase.API.Mappings
         public AutoMapperProfile()
         {
             CreateMap<Property, PropertyDto>().ReverseMap();
+            CreateMap<Property, AddPropertyDto>().ReverseMap();
+            CreateMap<Property, UpdatePropertyDto>().ReverseMap();
         }
     }
 }
