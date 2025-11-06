@@ -35,7 +35,8 @@ namespace RentEase.API.Controllers
 
             if (property == null)
             {
-                return NotFound();
+                return NotFound($"key with id {id} not existed");
+               
             }
 
             return Ok(property);

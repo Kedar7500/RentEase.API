@@ -7,8 +7,8 @@ namespace RentEase.API.Services.Interfaces
     {
         Task<List<Property>> GetAllProperties();
         Task<Property> GetPropertyById(int id);
-        Task<Property> CreateProperty(AddPropertyDto addPropertyDto);
-        Task<Property> UpdateProperty(int id , UpdatePropertyDto updatePropertyDto);
+        Task<PropertyDto> CreateProperty(AddPropertyDto addPropertyDto);
+        Task<PropertyDto> UpdateProperty(int id , UpdatePropertyDto updatePropertyDto);
         Task<Property> DeleteProperty(int id);
     }
 }

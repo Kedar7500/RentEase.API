@@ -25,17 +25,21 @@ namespace RentEase.API.Services.Implementations
         {
             return propertyRepository.GetPropertyById(id);
         }
-        public async Task<Property> CreateProperty(AddPropertyDto addPropertyDto)
+        public async Task<PropertyDto> CreateProperty(AddPropertyDto addPropertyDto)
         {
             var property = mapper.Map<Property>(addPropertyDto);
             property = await propertyRepository.CreateProperty(property);
-            return property;
+            // map again to propertydto
+            var propertyDto = mapper.Map<PropertyDto>(property);
+            return propertyDto;
         }
-        public async Task<Property> UpdateProperty(int id, UpdatePropertyDto updatePropertyDto)
+        public async Task<PropertyDto> UpdateProperty(int id, UpdatePropertyDto updatePropertyDto)
         {
             var prop = mapper.Map<Property>(updatePropertyDto);
             prop = await propertyRepository.UpdateProperty(id, prop);
-            return prop;
+            // map again to propertydto
+            var propertyDto = mapper.Map<PropertyDto>(prop);
+            return propertyDto;
         }
         public async Task<Property> DeleteProperty(int id)
         {

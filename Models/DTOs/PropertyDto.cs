@@ -1,4 +1,5 @@
-﻿using RentEase.API.Models.Enums;
+﻿using Microsoft.EntityFrameworkCore;
+using RentEase.API.Models.Enums;
 
 namespace RentEase.API.Models.DTOs
 {
@@ -10,5 +11,7 @@ namespace RentEase.API.Models.DTOs
         public decimal RentAmount { get; set; }
         public string Location { get; set; }
         public PropertyStatus Status { get; set; } = PropertyStatus.Available;
+        public DateTime PostedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
     }
 }
