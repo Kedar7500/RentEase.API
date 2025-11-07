@@ -15,7 +15,7 @@ namespace RentEase.API.Repositories.Implementations
         }
         public async Task<List<Property>> GetAllProperty()
         {
-            return await dbContext.Properties.ToListAsync();
+            return await dbContext.Properties.Include(p => p.PropertyImages).ToListAsync();
         }
 
         public async Task<Property> GetPropertyById(int id)
@@ -28,8 +28,21 @@ namespace RentEase.API.Repositories.Implementations
         {
             await dbContext.Properties.AddAsync(property);
             await dbContext.SaveChangesAsync();
+
+            if (property.PropertyImages != null && property.PropertyImages.Count > 0)
+            {
+                foreach (var image in property.PropertyImages)
+                {
+                    image.PropertyId = property.Id;
+                }
+                await dbContext.Images.AddRangeAsync(property.PropertyImages);
+                await dbContext.SaveChangesAsync();
+            }
+
+           // await dbContext.SaveChangesAsync();
             return property;
         }
+
         public async Task<Property> UpdateProperty(int id, Property property)
         {
             var existingProperty = dbContext.Properties.FirstOrDefault(p => p.Id == id);

@@ -5,7 +5,7 @@ namespace RentEase.API.Services.Interfaces
 {
     public interface IPropertyService
     {
-        Task<List<Property>> GetAllProperties();
+        Task<List<PropertyDto>> GetAllProperties();
         Task<Property> GetPropertyById(int id);
         Task<PropertyDto> CreateProperty(AddPropertyDto addPropertyDto);
         Task<PropertyDto> UpdateProperty(int id , UpdatePropertyDto updatePropertyDto);

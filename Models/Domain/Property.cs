@@ -18,6 +18,7 @@ namespace RentEase.API.Models.Domain
         public DateTime? UpdatedAt { get; set; }
 
         // navigation property for images
-        public ICollection<Image> PropertyImages = new List<Image>();
+        public ICollection<Image> PropertyImages { get; set; } = new List<Image>();
+
     }
 }

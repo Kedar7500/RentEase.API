@@ -13,5 +13,6 @@ namespace RentEase.API.Models.DTOs
         public PropertyStatus Status { get; set; } = PropertyStatus.Available;
         public DateTime PostedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
+        public ICollection<ImageDto> PropertyImages { get; set; } = new List<ImageDto>();
     }
 }

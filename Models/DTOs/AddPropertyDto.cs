@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RentEase.API.Models.Domain;
 using RentEase.API.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,5 +24,7 @@ namespace RentEase.API.Models.DTOs
         public PropertyStatus Status { get; set; } = PropertyStatus.Available;
 
         public DateTime PostedAt { get; set; } = DateTime.UtcNow;
+        public List<IFormFile> Images { get; set; }
+        public string? FileDescritpion { get; set; }
     }
 }

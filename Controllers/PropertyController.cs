@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentEase.API.Models.Domain;
 using RentEase.API.Models.DTOs;
@@ -38,13 +39,14 @@ namespace RentEase.API.Controllers
                 return NotFound($"key with id {id} not existed");
                
             }
-
             return Ok(property);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProperty([FromBody] AddPropertyDto addPropertyDto)
+        public async Task<IActionResult> CreateProperty([FromForm] AddPropertyDto addPropertyDto)
         {
+            ValidateFileUpload(addPropertyDto);
+
             if (ModelState.IsValid)
             {
                 var created = await propertyService.CreateProperty(addPropertyDto);
@@ -55,6 +57,29 @@ namespace RentEase.API.Controllers
                 return BadRequest();
             }
            
+        }
+
+        private void ValidateFileUpload(AddPropertyDto addProperty)
+        {
+            var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
+
+            if(addProperty == null || addProperty.Images.Count == 0)
+            {
+                ModelState.AddModelError("file","at least one image must to have");
+            }
+
+            foreach(var file in addProperty.Images)
+            {
+                if (!allowedExtensions.Contains(Path.GetExtension(file.FileName.ToLowerInvariant())))
+                {
+                    ModelState.AddModelError("file", "UnSupported File Extension");
+                }
+
+                if (file.Length > 10485760)
+                {
+                    ModelState.AddModelError("file", "File size more than 10MB, please upload a smaller size file");
+                }
+            }
         }
 
         [HttpPut("{id:int?}")]

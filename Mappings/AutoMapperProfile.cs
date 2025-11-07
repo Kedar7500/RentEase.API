@@ -11,6 +11,7 @@ namespace RentEase.API.Mappings
             CreateMap<Property, PropertyDto>().ReverseMap();
             CreateMap<Property, AddPropertyDto>().ReverseMap();
             CreateMap<Property, UpdatePropertyDto>().ReverseMap();
+            CreateMap<Image, ImageDto>().ReverseMap();
         }
     }
 }
