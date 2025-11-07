@@ -16,5 +16,8 @@ namespace RentEase.API.Models.Domain
         public PropertyStatus Status { get; set; } = PropertyStatus.Available;
         public DateTime PostedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
+
+        // navigation property for images
+        public ICollection<Image> PropertyImages = new List<Image>();
     }
 }

@@ -11,7 +11,7 @@ namespace RentEase.API.Data
         }
 
         public DbSet<Property> Properties { get; set; }
-
+        public DbSet<Image> Images { get; set; }
 
     }
 }
