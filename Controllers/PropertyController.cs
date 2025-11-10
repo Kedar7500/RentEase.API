@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentEase.API.Models.Domain;
@@ -9,6 +10,7 @@ namespace RentEase.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PropertyController : ControllerBase
     {
         private readonly IPropertyService propertyService;
