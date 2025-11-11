@@ -10,7 +10,6 @@ namespace RentEase.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PropertyController : ControllerBase
     {
         private readonly IPropertyService propertyService;
@@ -21,6 +20,7 @@ namespace RentEase.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Admin,Owner,Tenant")]
         public async Task<IActionResult> GetAllProperties()
         {
            var properties = await propertyService.GetAllProperties();
@@ -32,6 +32,7 @@ namespace RentEase.API.Controllers
 
         [HttpGet]
         [Route("{id:int?}")]
+        [Authorize(Roles = "Admin,Owner,Tenant")]
         public async Task<IActionResult> GetPropertiesById([FromRoute] int id)
         { 
             var property = await propertyService.GetPropertyById(id);
@@ -45,6 +46,7 @@ namespace RentEase.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Owner")]
         public async Task<IActionResult> CreateProperty([FromForm] AddPropertyDto addPropertyDto)
         {
             ValidateFileUpload(addPropertyDto);
@@ -85,6 +87,7 @@ namespace RentEase.API.Controllers
         }
 
         [HttpPut("{id:int?}")]
+        [Authorize(Roles ="Admin,Owner")]
         public async Task<IActionResult> UpdateProperty([FromRoute] int id, [FromBody] UpdatePropertyDto updateProperty)
         {
             if (ModelState.IsValid)
@@ -99,6 +102,7 @@ namespace RentEase.API.Controllers
         }
 
         [HttpDelete("{id:int?}")]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> DeleteProperty([FromRoute]int id)
         {
             var deletedProperty = await propertyService.DeleteProperty(id);
